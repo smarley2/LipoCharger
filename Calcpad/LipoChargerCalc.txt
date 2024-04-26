@@ -1,0 +1,10 @@
+"Balancing circuit"
+Lipo_cell_max_voltage = 4.2V
+Bal_res = 47Ω
+Bal_current = Lipo_cell_max_voltage/Bal_res
+Bal_Power = Lipo_cell_max_voltage^2/Bal_res
+
+'Mosfet SI2377EDS-T1-GE3-VB'
+Bal_mosfet_rds_on = 1.25*0.061Ω
+Bal_mosfet_pd = Bal_mosfet_rds_on*Bal_current^2
+Tj = Bal_mosfet_pd*130C/W
