@@ -8,3 +8,111 @@ Bal_Power = Lipo_cell_max_voltage^2/Bal_res
 Bal_mosfet_rds_on = 1.25*0.061Ω
 Bal_mosfet_pd = Bal_mosfet_rds_on*Bal_current^2
 Tj = Bal_mosfet_pd*130C/W
+
+"Linear Regulator"
+'TPS7B86-Q1'
+'<img style="height:250pt;" src="C:/projetos/LipoCharger/Calcpad/Images/TPS7B86 Cap Req.PNG" alt="TPS7B86 Cap Req.PNG">
+
+'Capacitor selected Murata GRM21BR6YA106KE43L 35V 10uF X5R ±10% 0805 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS'
+'https://www.murata.com/en - global/products/productdetail?partno = GRM21BR6YA106KE43%23'
+
+'ESR'
+'<img style="height:200pt;" src="C:/projetos/LipoCharger/Calcpad/Images/GRM21BR6YA106KE43 ESR.PNG" alt="GRM21BR6YA106KE43 ESR.PNG">
+
+'Capacitance on the operation points'
+'<img style="height:200pt;" src="C:/projetos/LipoCharger/Calcpad/Images/GRM21BR6YA106KE43 Capacitance.png" alt="GRM21BR6YA106KE43 Capacitance.png">
+
+'If using a high equivalent series resistance (ESR) capacitor, decouple the output with a 100nF ceramic capacitor.'
+
+'DC Bias[V]	Capacitance[uF]'
+'3.325 - 8.40'
+'4.2 - 7.46'
+'5.075 - 6.58'
+'8.4 - 4.11'
+'12.6 - 2.65'
+'16.8 - 1.98'
+'20.125 - 1.64'
+
+'Current consumption'
+'3.3V Power Requirements'
+'STM32G071CBT6 - 100mA'
+'RGB LED - 15mA'
+I_total = 0.115A'
+
+Vin = 20V
+Vout = 3.3V
+Iout = I_total*1.3
+P = (Vin - Vout)*Iout
+Ta = 40C
+
+Rtja = 40C/W
+Tj = Ta + P*Rtja
+
+Erro = (0.85 + 0.45)/100
+Vou_max = Vout*(1 + Erro)
+Vou_min = Vout*(1 - Erro)
+
+
+
+"Buck Boost"
+'BQ25730'
+
+'System voltage regulation'
+'REG0x05/04() = 0x41A0H (16.800 V)'
+'REG0x05/04() = 0x3138H (12.600 V)'
+'REG0x05/04() = 0x20D0H (8.400 V)'
+'REG0x05/04() = 0x1068H (4.200 V)'
+
+'Minimum System Voltage Regulation'
+'REG0x0D/0C() = 0x9A00H (12.300 V)'
+'REG0x0D/0C() = 0x7B00H (9.200 V)'
+'REG0x0D/0C() = 0x4200H (6.600 V)'
+'REG0x0D/0C() = 0x2400H (3.600 V)'
+
+'Charge current regulation (with 5mohms shunt)'
+'REG0x03/02() = 0x1000H (8192mA)'
+'REG0x03/02() = 0x0800H (4096mA)'
+'REG0x03/02() = 0x0400H (2048mA)'
+'REG0x03/02() = 0x0200H (1024mA)'
+'4096 represent full range'
+
+'Input current regulation (with 5mohms shunt)'
+'REG0x0F/0E() = 0x4E00H (7800mA)'
+
+'REGN 5.7 - 6.0 - 6.3V'
+'I_REGN 65mA'
+
+'Input current sensing gain'
+'REG0x00[4] = 0 - 20'
+'REG0x00[4] = 1 - 40'
+
+'Charge and discharge current sensing gain on IBAT pin'
+'REG0x00[3] = 0 - 8'
+'REG0x00[3] = 1 - 16'
+
+'Maximum capacitance at IBAT Pin - 100pF. Check PCB parasitics.'
+
+'PWM switching frequency'
+'Reg0x01[1] = 0 - 800kHz'
+'Reg0x01[1] = 1 - 400kHz'
+
+'R_on = 6R'
+'R_off = 1.5R'
+
+'Watchdog timeout period, REG0x01[6:5]=01 - 4s'
+
+'Switching Frequency and Dithering Feature'
+'Normally, the IC switches in fixed frequency which can be adjusted through WM_FREQ register bit. The Charger also support frequency dithering function to improve EMI performance. This function is disabled by default with setting EN_DITHER=00b. It can be enabled by setting N_DITHER=01/10/11b, the switching frequency is not fixed when dithering is enabled. It varies within determined range by EN_DITHER setting, 01/10/11b is corresponding to ±2%/4%/6% switching frequency. Please contact factory for more detail information'
+
+'RAC=5 mΩ(RSNS_RAC=1b) and RSR=10 mΩ(RSNS_RAC=0b)'
+
+
+
+
+
+
+
+
+
+
+
